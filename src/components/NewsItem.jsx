@@ -20,7 +20,7 @@ export class NewsItem extends Component {
 						<h5 className="card-title">
 							{title}
 							<br />
-							<span class="badge rounded-pill text-bg-dark">
+							<span className="badge rounded-pill text-bg-dark">
 								{source}
 							</span>
 						</h5>
