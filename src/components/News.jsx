@@ -27,8 +27,8 @@ export class News extends Component {
 			page: 1,
 		};
 	}
-	async componentDidMount() {
-		let url = `https://newsapi.org/v2/top-headlines?country=${this.props.countryName}&category=${this.props.category}&apiKey=a6ae65bc33dc45999b120f99174a62a1&page=1&pageSize=${this.props.page_size}`;
+	async newsMain() {
+		const url = `https://newsapi.org/v2/top-headlines?country=${this.props.countryName}&category=${this.props.category}&apiKey=a6ae65bc33dc45999b120f99174a62a1&page=${this.state.page}&pageSize=${this.props.pageSize}`;
 		this.setState({ loading: true });
 		let data = await fetch(url);
 		let parseData = await data.json();
@@ -38,47 +38,25 @@ export class News extends Component {
 			loading: false,
 		});
 	}
+	async componentDidMount() {
+		this.newsMain();
+	}
 	handleNextButton = async () => {
-		let url = `https://newsapi.org/v2/top-headlines?country=${
-			this.props.countryName
-		}&category=${
-			this.props.category
-		}&apiKey=a6ae65bc33dc45999b120f99174a62a1&pageSize=${
-			this.props.page_size
-		}&page=${this.state.page + 1}`;
-		this.setState({ loading: true });
-		let data = await fetch(url);
-		let parseData = await data.json();
-		// console.log(parseData);
-		this.setState((this.articles = parseData.articles));
-
 		this.setState({
 			page: this.state.page + 1,
-			loading: false,
 		});
+		this.newsMain();
 	};
 	handlePreviousButton = async () => {
-		let url = `https://newsapi.org/v2/top-headlines?country=${
-			this.props.countryName
-		}&category=${
-			this.props.category
-		}&apiKey=a6ae65bc33dc45999b120f99174a62a1&pageSize=${
-			this.props.page_size
-		}&page=${this.state.page - 1}`;
-		this.setState({ loading: true });
-		let data = await fetch(url);
-		let parseData = await data.json();
-		// console.log(parseData);
-		this.setState((this.articles = parseData.articles));
 		this.setState({
 			page: this.state.page - 1,
-			loading: false,
 		});
+		this.newsMain();
 	};
 
 	render() {
 		return (
-			<div className="container my-3">
+			<div className="container my-4">
 				<h1 className="text-center" style={{ margin: "35px" }}>
 					Top Head Lines
 				</h1>
