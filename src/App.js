@@ -6,6 +6,7 @@ import LoadingBar from "react-top-loading-bar";
 
 export default class App extends Component {
 	pageSize = 9;
+	apiKeys = process.env.REACT_APP_NEWSAPP_Api1;
 	state = {
 		progress: 0,
 	};
@@ -30,6 +31,7 @@ export default class App extends Component {
 							path="/"
 							element={
 								<News
+									apiKeys={this.apiKeys}
 									setProgress={this.setProgress}
 									key="general"
 									pageSize={this.pageSize}
@@ -44,6 +46,7 @@ export default class App extends Component {
 							path="/business"
 							element={
 								<News
+									apiKeys={this.apiKeys}
 									setProgress={this.setProgress}
 									key="business"
 									pageSize={this.pageSize}
@@ -57,6 +60,7 @@ export default class App extends Component {
 							path="/entertainment"
 							element={
 								<News
+									apiKeys={this.apiKeys}
 									setProgress={this.setProgress}
 									key="entertainment"
 									pageSize={this.pageSize}
@@ -71,6 +75,7 @@ export default class App extends Component {
 							path="/health"
 							element={
 								<News
+									apiKeys={this.apiKeys}
 									setProgress={this.setProgress}
 									key="health"
 									pageSize={this.pageSize}
@@ -84,6 +89,7 @@ export default class App extends Component {
 							path="/science"
 							element={
 								<News
+									apiKeys={this.apiKeys}
 									setProgress={this.setProgress}
 									key="science"
 									pageSize={this.pageSize}
@@ -97,6 +103,7 @@ export default class App extends Component {
 							path="/sports"
 							element={
 								<News
+									apiKeys={this.apiKeys}
 									setProgress={this.setProgress}
 									key="sports"
 									pageSize={this.pageSize}
@@ -110,6 +117,7 @@ export default class App extends Component {
 							path="/technology"
 							element={
 								<News
+									apiKeys={this.apiKeys}
 									setProgress={this.setProgress}
 									key="technology"
 									pageSize={this.pageSize}
