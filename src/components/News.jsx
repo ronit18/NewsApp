@@ -20,6 +20,7 @@ export class News extends Component {
 	};
 
 	articles = [];
+	totalResults = 0;
 	capitalizeFirstLetter = (string) => {
 		return string.charAt(0).toUpperCase() + string.slice(1);
 	};
@@ -28,13 +29,13 @@ export class News extends Component {
 
 		this.state = {
 			articles: this.articles,
-			loading: false,
+			loading: true,
 			page: 1,
 			totalResults: 0,
 		};
 		document.title = `NewsApp-${this.capitalizeFirstLetter(
 			this.props.category
-		)}`;
+		)} 🚀`;
 	}
 	async newsMain() {
 		const url = `https://newsapi.org/v2/top-headlines?country=${this.props.countryName}&category=${this.props.category}&apiKey=${this.apiKeys2}&page=${this.state.page}&pageSize=${this.props.pageSize}`;
@@ -45,6 +46,7 @@ export class News extends Component {
 		this.setState((this.articles = parseData.articles));
 		this.setState({
 			loading: false,
+			totalResults: parseData.totalResults,
 		});
 	}
 	async componentDidMount() {
@@ -52,33 +54,36 @@ export class News extends Component {
 	}
 
 	fetchMoreData = async () => {
-		this.setState({
-			page: this.state.page + 1,
-		});
+		this.setState({ page: this.state.page + 1 });
 		const url = `https://newsapi.org/v2/top-headlines?country=${this.props.countryName}&category=${this.props.category}&apiKey=${this.apiKeys2}&page=${this.state.page}&pageSize=${this.props.pageSize}`;
-		this.setState({ loading: true });
+
 		let data = await fetch(url);
 		let parseData = await data.json();
 		// console.log(parseData);
-
+		this.setState(
+			(this.articles = this.state.articles.concat(parseData.articles))
+		);
 		this.setState({
-			loading: false,
 			articles: this.state.articles.concat(parseData.articles),
+
+			totalResults: parseData.totalResults,
 		});
 	};
 
 	render() {
 		return (
-			<div className="container my-4">
+			<>
 				<h1 className="text-center" style={{ margin: "35px" }}>
 					Top Head Lines-
-					{`${this.capitalizeFirstLetter(this.props.category)}`}
+					{`${this.capitalizeFirstLetter(this.props.category)}`}🚀
 				</h1>
-				{/* {this.state.loading && <Spinner />} */}
+				{this.state.loading && <Spinner />}
 				<InfiniteScroll
 					dataLength={this.state.articles.length}
 					next={this.fetchMoreData}
-					hasMore={this.state.articles !== this.state.totalResults}
+					hasMore={
+						this.state.articles.length !== this.state.totalResults
+					}
 					loader={<Spinner />}
 				>
 					<div className="container">
@@ -101,7 +106,7 @@ export class News extends Component {
 						</div>
 					</div>
 				</InfiniteScroll>
-			</div>
+			</>
 		);
 	}
 }
