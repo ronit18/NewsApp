@@ -56,7 +56,9 @@ const News = (props) => {
 	return (
 		<>
 			<h1
-				className="text-center"
+				className={`text-center text-${
+					props.mode === "light" ? "dark" : "light"
+				}`}
 				style={{ margin: "35px", marginTop: "90px" }}
 			>
 				Top Head Lines-
@@ -82,6 +84,7 @@ const News = (props) => {
 										author={element.author}
 										date={element.publishedAt}
 										source={element.source.name}
+										mode={props.mode}
 									/>
 								</div>
 							);

@@ -8,11 +8,22 @@ const App = () => {
 	const pageSize = 9;
 	const apiKeys = process.env.REACT_APP_NEWSAPP_Api2;
 	const [progress, setProgress] = useState(0);
+	const [mode, setMode] = useState("light");
+
+	const toggleMode = () => {
+		if (mode === "light") {
+			setMode("dark");
+			document.body.style.background = "black";
+		} else {
+			setMode("light");
+			document.body.style.background = "white";
+		}
+	};
 
 	return (
 		<>
 			<Router>
-				<Navbar />
+				<Navbar mode={mode} toggleMode={toggleMode} />
 				<LoadingBar color="#f11946" progress={progress} height={3} />
 				<Routes>
 					<Route
@@ -21,6 +32,8 @@ const App = () => {
 						element={
 							<News
 								apiKeys={apiKeys}
+								mode={mode}
+								toggleMode={toggleMode}
 								setProgress={setProgress}
 								key="general"
 								pageSize={pageSize}
@@ -36,6 +49,8 @@ const App = () => {
 						element={
 							<News
 								apiKeys={apiKeys}
+								mode={mode}
+								toggleMode={toggleMode}
 								setProgress={setProgress}
 								key="business"
 								pageSize={pageSize}
@@ -50,6 +65,8 @@ const App = () => {
 						element={
 							<News
 								apiKeys={apiKeys}
+								mode={mode}
+								toggleMode={toggleMode}
 								setProgress={setProgress}
 								key="entertainment"
 								pageSize={pageSize}
@@ -65,6 +82,8 @@ const App = () => {
 						element={
 							<News
 								apiKeys={apiKeys}
+								mode={mode}
+								toggleMode={toggleMode}
 								setProgress={setProgress}
 								key="health"
 								pageSize={pageSize}
@@ -79,6 +98,8 @@ const App = () => {
 						element={
 							<News
 								apiKeys={apiKeys}
+								mode={mode}
+								toggleMode={toggleMode}
 								setProgress={setProgress}
 								key="science"
 								pageSize={pageSize}
@@ -93,6 +114,8 @@ const App = () => {
 						element={
 							<News
 								apiKeys={apiKeys}
+								mode={mode}
+								toggleMode={toggleMode}
 								setProgress={setProgress}
 								key="sports"
 								pageSize={pageSize}
@@ -107,6 +130,8 @@ const App = () => {
 						element={
 							<News
 								apiKeys={apiKeys}
+								mode={mode}
+								toggleMode={toggleMode}
 								setProgress={setProgress}
 								key="technology"
 								pageSize={pageSize}

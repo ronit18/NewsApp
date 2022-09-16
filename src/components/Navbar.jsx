@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Navbar = () => {
+const Navbar = (props) => {
 	const navbar = [
 		{
 			id: 2,
@@ -32,7 +32,9 @@ const Navbar = () => {
 
 	return (
 		<div>
-			<nav className={`navbar fixed-top navbar-expand-lg bg-light`}>
+			<nav
+				className={`navbar fixed-top navbar-expand-lg navbar-${props.mode} bg-${props.mode}`}
+			>
 				<div className="container-fluid">
 					<Link className="navbar-brand" to="/">
 						NewsApp
@@ -65,6 +67,28 @@ const Navbar = () => {
 								</li>
 							))}
 						</ul>
+					</div>
+
+					<div
+						className={`form-check form-switch text-${
+							props.mode === "light" ? "Dark" : "light"
+						}`}
+					>
+						<input
+							className="form-check-input"
+							type="checkbox"
+							role="switch"
+							onClick={props.toggleMode}
+							id="flexSwitchCheckDefault"
+						/>
+						<label
+							className="form-check-label"
+							htmlFor="flexSwitchCheckDefault"
+						>
+							{`Enable ${
+								props.mode === "light" ? "Dark" : "light"
+							} Mode`}
+						</label>
 					</div>
 				</div>
 			</nav>
